@@ -15,9 +15,9 @@ if str(ROOT) not in sys.path:
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 def run(train_dir=ROOT / 'K-MEDICON 2024_SUB1_TRAINING SET', 
-        save_dir=ROOT / 'images2',
+        save_dir=ROOT / 'images',
         dpi=450,  # dpi of plotted images
-        color='grey', # ECG line color
+        color='black', # ECG line color
 ):
     train_dir = Path(train_dir)
     save_dir = Path(save_dir)
@@ -54,7 +54,7 @@ def run(train_dir=ROOT / 'K-MEDICON 2024_SUB1_TRAINING SET',
         print(f'normal #: {idx + 1}/{len(normal_idx)}')
         
     
-def plot_ecg_signal(signal, sampling_rate=500, file_name="ecg_plot.png", save=True, dpi='figure', color='grey'):
+def plot_ecg_signal(signal, sampling_rate=500, file_name="ecg_plot.png", save=True, dpi='figure', color='black'):
     # Time axis (in seconds)
     time = np.arange(signal.shape[0]) / sampling_rate
     
@@ -68,14 +68,14 @@ def plot_ecg_signal(signal, sampling_rate=500, file_name="ecg_plot.png", save=Tr
     # Loop over each lead
     for i in range(signal.shape[1]):
         plt.subplot(6, 2, i+1)  # 6 rows, 2 columns of subplots for 12 leads
-        plt.plot(time, signal[:, i]/100, color='blue', linewidth=0.5)
+        plt.plot(time, signal[:, i]/100, color=color, linewidth=0.5)
 
         # Set the x and y limits based on the standards
         plt.xlim(0, signal.shape[0] / sampling_rate)
         plt.ylim(-3, 3)  # Assuming the signal ranges between -2mV and 2mV
 
         # Grid with 5mm x 5mm (small squares) and 25mm x 25mm (large squares)
-        plt.grid(True, which='both', color=color, linestyle='-', linewidth=0.4)
+        plt.grid(True, which='both', color='grey', linestyle='-', linewidth=0.4)
         plt.minorticks_on()
         
         # Customizing ticks to match the ECG scale
@@ -98,9 +98,9 @@ def plot_ecg_signal(signal, sampling_rate=500, file_name="ecg_plot.png", save=Tr
 def parse_opt():      
     parser = argparse.ArgumentParser()
     parser.add_argument('--train_dir', default=ROOT / 'K-MEDICON 2024_SUB1_TRAINING SET', help='train data path')
-    parser.add_argument('--save_dir', default=ROOT / 'images2', help='output image directory')
+    parser.add_argument('--save_dir', default=ROOT / 'images', help='output image directory')
     parser.add_argument('--dpi', default=450, type=int, help='dpi of plotted images')
-    parser.add_argument('--color', default='grey', help='ECG line color')
+    parser.add_argument('--color', default='black', help='ECG line color')
     opt = parser.parse_args()
     return opt
 
