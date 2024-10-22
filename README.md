@@ -3,7 +3,7 @@ ECG artifact detection project
 
 
 ## plotECG.py
-ECG visulization
+ECG visulization<br>
 Usage: python plotECG.py --train_dir [training data directory]
 
 
